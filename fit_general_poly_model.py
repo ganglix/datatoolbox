@@ -65,34 +65,34 @@ def fit_and_calculate_intervals(x, y, model, p0, alpha=0.05):
 
     return popt, param_errors, CI, r_squared, p_value
 
-# Main code
-# if __name__ == "__main__":
-#     # Generate synthetic data
-#     np.random.seed(42)
-#     x = np.linspace(0, 10, 50)
-#     y = 3 * x + 7 + np.random.normal(0, 3, size=len(x))
+# Main code, use example
+if __name__ == "__main__":
+    # Generate synthetic data
+    np.random.seed(42)
+    x = np.linspace(0, 10, 50)
+    y = 3 * x + 7 + np.random.normal(0, 3, size=len(x))
 
-#     # Fit the model and calculate confidence intervals, R², and p-value
-#     popt, param_errors, CI, r_squared, p_value = fit_and_calculate_intervals(x, y, polynomial_model, p0=[1, 1, 1])
-#     y_pred = polynomial_model(x, *popt)
+    # Fit the model and calculate confidence intervals, R², and p-value
+    popt, param_errors, CI, r_squared, p_value = fit_and_calculate_intervals(x, y, polynomial_model, p0=[1, 1, 1])
+    y_pred = polynomial_model(x, *popt)
 
-#     # Print fitted parameters, their standard errors, R², and p-value
-#     print("Fitted Parameters and Standard Errors:")
-#     for i, (param, error) in enumerate(zip(popt, param_errors)):
-#         print(f"Coefficient a{i}: {param:.4f}, SE: {error:.4f}")
-#     print(f"R²: {r_squared:.4f}")
-#     print(f"p-value: {p_value:.4e}")
+    # Print fitted parameters, their standard errors, R², and p-value
+    print("Fitted Parameters and Standard Errors:")
+    for i, (param, error) in enumerate(zip(popt, param_errors)):
+        print(f"Coefficient a{i}: {param:.4f}, SE: {error:.4f}")
+    print(f"R²: {r_squared:.4f}")
+    print(f"p-value: {p_value:.4e}")
 
-#     # Plot the data, fit, and confidence bounds
-#     plt.figure(figsize=(10, 6))
-#     plt.scatter(x, y, label="Data", color="lightgrey", edgecolor="darkgrey", linewidth=1, alpha=1)
-#     plt.plot(x, y_pred, label="Fitted Polynomial", color="black")
-#     plt.fill_between(x, y_pred - CI, y_pred + CI, linewidth=0, color="gray", alpha=0.3, label="95% Confidence Interval")
-#     plt.xlabel("X")
-#     plt.ylabel("Y")
-#     plt.title("Polynomial Regression with 95% Confidence Interval")
-#     plt.legend()
-#     plt.show()
+    # Plot the data, fit, and confidence bounds
+    plt.figure(figsize=(10, 6))
+    plt.scatter(x, y, label="Data", color="lightgrey", edgecolor="darkgrey", linewidth=1, alpha=1)
+    plt.plot(x, y_pred, label="Fitted Polynomial", color="black")
+    plt.fill_between(x, y_pred - CI, y_pred + CI, linewidth=0, color="gray", alpha=0.3, label="95% Confidence Interval")
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.title("Polynomial Regression with 95% Confidence Interval")
+    plt.legend()
+    plt.show()
 
 
 
@@ -103,37 +103,3 @@ def fit_and_calculate_intervals(x, y, model, p0, alpha=0.05):
 # Coefficient a2: 0.0642, SE: 0.0504
 # R²: 0.9064
 # p-value: 1.1102e-16
-
-def test_fit_and_calculate_intervals():
-    """
-    Test the fit_and_calculate_intervals function using precomputed results.
-    """
-    # Generate synthetic data
-    np.random.seed(42)
-    x = np.linspace(0, 10, 50)
-    y = 3 * x + 7 + np.random.normal(0, 3, size=len(x))
-
-    # Expected results
-    expected_popt = [8.24226044, 2.18357947, 0.06424703]
-    expected_param_errors = [1.1270266, 0.5212322, 0.0504058]
-    expected_r_squared = 0.906
-    expected_p_value = 1.11e-16
-
-    # Fit the model and calculate outputs
-    popt, param_errors, CI, r_squared, p_value = fit_and_calculate_intervals(x, y, polynomial_model, p0=[1, 1, 1])
-    
-    # Assertions for parameters
-    assert np.allclose(popt, expected_popt, atol=0.01), "Fitted parameters are not within tolerance."
-    assert np.allclose(param_errors, expected_param_errors, atol=0.01), "Parameter standard errors are not within tolerance."
-
-    # Assertions for R² and p-value
-    assert np.isclose(r_squared, expected_r_squared, atol=0.01), "R² is not within tolerance."
-    assert np.isclose(p_value, expected_p_value, atol=1e-16), "p-value is not within tolerance."
-
-    # Assertions for confidence intervals
-    assert CI is not None and len(CI) == len(x), "Confidence intervals are not correctly calculated."
-
-    print("Test passed: All results match expected values.")
-
-
-test_fit_and_calculate_intervals()

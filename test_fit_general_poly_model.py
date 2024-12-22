@@ -8,14 +8,19 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from fit_general_poly_model import polynomial_model, fit_and_calculate_intervals
 
-def test_fit_and_calculate_intervals():
-    """
-    Test the fit_and_calculate_intervals function using precomputed results.
-    """
-    # Generate synthetic data
+@pytest.fixture
+def synthetic_data():
+    """Generate synthetic test data."""
     np.random.seed(42)
     x = np.linspace(0, 10, 50)
     y = 3 * x + 7 + np.random.normal(0, 3, size=len(x))
+    return x, y
+
+def test_fit_and_calculate_intervals(synthetic_data):
+    """
+    Test the fit_and_calculate_intervals function using precomputed results.
+    """
+    x, y = synthetic_data
 
     # Expected results
     expected_popt = [8.24226044, 2.18357947, 0.06424703]
@@ -36,5 +41,3 @@ def test_fit_and_calculate_intervals():
 
     # Assertions for confidence intervals
     assert CI is not None and len(CI) == len(x), "Confidence intervals are not correctly calculated."
-
-    print("Test passed: All results match expected values.")
