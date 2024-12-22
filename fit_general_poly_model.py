@@ -61,9 +61,9 @@ def fit_and_calculate_intervals(x, y, model, p0, alpha=0.05):
     SE_mean = np.sqrt(np.sum((jacobian @ pcov) * jacobian, axis=1))
 
     # Confidence interval
-    CI = t_value * SE_mean
+    CI_fit = t_value * SE_mean
 
-    return popt, param_errors, CI, r_squared, p_value
+    return popt, param_errors, CI_fit, r_squared, p_value
 
 # Main code, use example
 if __name__ == "__main__":
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     y = 3 * x + 7 + np.random.normal(0, 3, size=len(x))
 
     # Fit the model and calculate confidence intervals, R², and p-value
-    popt, param_errors, CI, r_squared, p_value = fit_and_calculate_intervals(x, y, polynomial_model, p0=[1, 1, 1])
+    popt, param_errors, CI_fit, r_squared, p_value = fit_and_calculate_intervals(x, y, polynomial_model, p0=[1, 1, 1])
     y_pred = polynomial_model(x, *popt)
 
     # Print fitted parameters, their standard errors, R², and p-value
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     plt.figure(figsize=(10, 6))
     plt.scatter(x, y, label="Data", color="lightgrey", edgecolor="darkgrey", linewidth=1, alpha=1)
     plt.plot(x, y_pred, label="Fitted Polynomial", color="black")
-    plt.fill_between(x, y_pred - CI, y_pred + CI, linewidth=0, color="gray", alpha=0.3, label="95% Confidence Interval")
+    plt.fill_between(x, y_pred - CI_fit, y_pred + CI_fit, linewidth=0, color="gray", alpha=0.3, label="95% Confidence Interval (fit)")
     plt.xlabel("X")
     plt.ylabel("Y")
     plt.title("Polynomial Regression with 95% Confidence Interval")
@@ -103,3 +103,5 @@ if __name__ == "__main__":
 # Coefficient a2: 0.0642, SE: 0.0504
 # R²: 0.9064
 # p-value: 1.1102e-16
+
+
