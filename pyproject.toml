@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DATATOOLBOX"
+version = "0.1.0"
+description = "DATATOOLBOX is a Python package for data modeling, analysis, and visualization. It includes functionalities for polynomial fitting, confidence interval computation, spline fitting, and more."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name="Gang Li", email="ganglix@gmail.com" },
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+
+dependencies = [  
+    "numpy",
+    "matplotlib",
+    "scipy"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest", 
+    "flake8",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ganglix/DATATOOLBOX"
+"Documentation" = "https://github.com/ganglix/DATATOOLBOX"
